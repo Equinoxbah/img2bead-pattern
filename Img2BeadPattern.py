@@ -308,13 +308,13 @@ BEAD_COLORS = {
     "ZG8": (171, 145, 192),
 }
 
-# ===================== 程序配置区（删除预览图路径） =====================
+# 程序配置区（删除预览图路径）
 BEAD_WIDTH = 48    # 拼豆画布横向格子数
 BEAD_HEIGHT = 48   # 拼豆画布纵向格子数
 CELL_SIZE = 30     # 图纸单格像素大小
 INPUT_IMG_PATH = "input.jpg"
 OUTPUT_DRAWING = "bead_drawing.png"  # 仅输出这一张图纸
-# ======================================================
+#---------------------------
 
 def find_closest_bead_color(pixel_rgb):
     """加权人眼色差匹配，浮点运算消除overflow警告，返回色号+对应RGB"""
@@ -377,17 +377,6 @@ def count_bead_codes(code_matrix):
         for code in row:
             count_dict[code] = count_dict.get(code, 0) + 1
     return count_dict
-
-def save_bead_count_txt(code_matrix):
-    """可选：单独导出色号数量文本清单（不需要可注释这行调用）"""
-    code_count = count_bead_codes(code_matrix)
-    sorted_codes = sorted(code_count.items(), key=lambda x: x[0])
-    with open("bead_count.txt", "w", encoding="utf-8") as f:
-        f.write("Bead Color Count List\n")
-        f.write("=" * 30 + "\n")
-        for code, count in sorted_codes:
-            f.write(f"{code}: {count} pcs\n")
-    print("拼豆数量清单已保存：bead_count.txt")
 
 def draw_bead_paper(code_mat, color_mat):
     """仅生成打印图纸：网格内色号，右侧图例=色块+色号+所需数量"""
